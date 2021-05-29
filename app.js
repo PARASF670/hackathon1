@@ -7,7 +7,7 @@ var auth='https://accounts.spotify.com/authorize'
 async function Authenticate() {
     try {
         var respj = await fetch(auth + '?client_id=' + client_id + '&redirect_uri=' + redirect_uri + '&scope=' + scopes +
-            '&response_type=token', { method: 'GET' })
+            '&response_type=token', { method: 'GET',mode: 'no-cors' })
         var res = await respj.json();
         console.log(res.access_token);
         

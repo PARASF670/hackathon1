@@ -70,11 +70,11 @@ function handleAuthorizationResponse(){
         console.log(data);
         var data = JSON.parse(this.responseText);
         if ( data.access_token != undefined ){
-            var access_token = data.access_token;
+             access_token = data.access_token;
             localStorage.setItem("access_token", access_token);
         }
         if ( data.refresh_token  != undefined ){
-            refresh_token = data.refresh_token;
+             refresh_token = data.refresh_token;
             localStorage.setItem("refresh_token", refresh_token);
         }
         document.getElementById('playlistbtn').disabled = false;
@@ -86,23 +86,27 @@ function handleAuthorizationResponse(){
     }
 }
 
-function refreshPlaylist(){
+function refreshPlaylist() {
+    
     callApi( "GET",playback, null, handlePlaylistResponse );
 }
 
-function callApi(method, url, body, callback){
+function callApi(method, url, body, callback) {
+    
     let xhr = new XMLHttpRequest();
     xhr.open(method, url, true);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Authorization', 'Bearer ' + access_token);
     xhr.send(body);
     xhr.onload = callback;
+    
 }
 function handlePlaylistResponse(){
     if ( this.status == 200 ){
         var data = JSON.parse(this.responseText);
         console.log(data);
-        removeAllItems( "presentdata" );
+        removeAllItems("presentdata");
+        ShowPlaylist(data);
         
     }
     else if ( this.status == 401 ){
@@ -118,4 +122,7 @@ function removeAllItems( elementId ){
     while (node.firstChild) {
         node.removeChild(node.firstChild);
     }
+}
+function ShowPlaylist(data){
+    console.log(data.items[0].name);
 }

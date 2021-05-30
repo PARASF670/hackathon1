@@ -84,7 +84,7 @@ function handleAuthorizationResponse(){
 }
 
 function refreshDevices(){
-    callApi( "GET", DEVICES, null, handleDevicesResponse );
+    callApi( "GET",playback, null, handlePlaylistResponse );
 }
 
 function callApi(method, url, body, callback){
@@ -95,7 +95,7 @@ function callApi(method, url, body, callback){
     xhr.send(body);
     xhr.onload = callback;
 }
-function handleDevicesResponse(){
+function handlePlaylistResponse(){
     if ( this.status == 200 ){
         var data = JSON.parse(this.responseText);
         console.log(data);
@@ -103,7 +103,7 @@ function handleDevicesResponse(){
         data.devices.forEach(item => addDevice(item));
     }
     else if ( this.status == 401 ){
-        refreshAccessToken()
+        // refreshAccessToken()
     }
     else {
         console.log(this.responseText);

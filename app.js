@@ -3,7 +3,8 @@ var client_secret = '';
 var redirect_uri = 'http://127.0.0.1:5500/index.html'
 var auth = 'https://accounts.spotify.com/authorize'
 const token = "https://accounts.spotify.com/api/token";
-var playback='https://api.spotify.com/v1/users/'+client_id+'/playlists'
+var playback='https://api.spotify.com/v1/me/playlists'
+
 
 function Authenticate() {
     localStorage.clear();
@@ -39,6 +40,7 @@ function Redirect(){
 function getCode(){
     let code = null;
     const queryString = window.location.search;
+    console.log(queryString);
     if ( queryString.length > 0 ){
         const urlParams = new URLSearchParams(queryString);
         code = urlParams.get('code')
@@ -68,13 +70,14 @@ function handleAuthorizationResponse(){
         console.log(data);
         var data = JSON.parse(this.responseText);
         if ( data.access_token != undefined ){
-            access_token = data.access_token;
+            var access_token = data.access_token;
             localStorage.setItem("access_token", access_token);
         }
         if ( data.refresh_token  != undefined ){
             refresh_token = data.refresh_token;
             localStorage.setItem("refresh_token", refresh_token);
         }
+        document.getElementById('playlistbtn').disabled = false;
         Load();
     }
     else {
@@ -83,7 +86,7 @@ function handleAuthorizationResponse(){
     }
 }
 
-function refreshDevices(){
+function refreshPlaylist(){
     callApi( "GET",playback, null, handlePlaylistResponse );
 }
 
@@ -99,11 +102,11 @@ function handlePlaylistResponse(){
     if ( this.status == 200 ){
         var data = JSON.parse(this.responseText);
         console.log(data);
-        removeAllItems( "devices" );
-        data.devices.forEach(item => addDevice(item));
+        removeAllItems( "presentdata" );
+        
     }
     else if ( this.status == 401 ){
-        // refreshAccessToken()
+        refreshAccessToken()
     }
     else {
         console.log(this.responseText);

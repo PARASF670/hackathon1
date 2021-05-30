@@ -3,7 +3,7 @@ var client_secret = '';
 var redirect_uri = 'http://127.0.0.1:5500/index.html'
 var auth = 'https://accounts.spotify.com/authorize'
 const token = "https://accounts.spotify.com/api/token";
-var playback=''
+var playback='https://api.spotify.com/v1/users/'+client_id+'/playlists'
 
 function Authenticate() {
     localStorage.clear();

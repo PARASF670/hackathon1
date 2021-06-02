@@ -121,8 +121,10 @@ function removeAllItems(elementId) {
   }
 }
 function ShowPlaylist(data) {
+    var x = document.getElementById("playcard").childElementCount;
+    console.log(x+1);
     for (i in data.items) {
-        // createcard(data.items[i].name,encodeURI(data.items[i].images[0].url));
+        
         createcard(data.items[i].name,data.items[i].images[0].url);
     }
   

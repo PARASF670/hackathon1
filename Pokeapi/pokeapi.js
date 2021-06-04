@@ -24,7 +24,7 @@ function DisplayApi(data) {
             console.log(result);
             for (i = 0; i < result.data.length;i++) {
                 var card = document.createElement('img');
-                card.id='poke';
+                card.style.margin = '15px';
                 card.setAttribute('src', result.data[i].images.small);
                 document.getElementById('card-container').append(card);
             }

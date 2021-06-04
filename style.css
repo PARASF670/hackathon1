@@ -7,3 +7,9 @@
     margin-right: auto;
     display: block;
 }
+#poke{
+    width: 300px !important;
+    height: 200px !important;
+    margin: 15px  !important;
+}
+

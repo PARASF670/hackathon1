@@ -11,7 +11,7 @@ go.addEventListener('click', function (event) {
 
 function DisplayApi(data) {
     
-    fetch(cardurl +'?name:'+ data,{
+    fetch(cardurl +'?q=name:'+ data,{
         headers: {
           'X-Api-Key':key
       } }
